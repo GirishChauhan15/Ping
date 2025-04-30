@@ -4,16 +4,20 @@ import axios from 'axios'
 
 const app = express()
 
+let count = 1;
+
 const ping = async() =>{
     setInterval(async() => {
         try {
-                await axios.get(`${process.env.BACKEND_URL}/api/v1/health`,{
+                const req = await axios.get(`${process.env.BACKEND_URL}/api/v1/health`,{
                     headers : {
                         'Content-Type' : "application/json"
                     }
                 })
+                console.log(`✅ Response #${count}:`, req?.data?.message);
+                count += 1
         } catch (error) {
-            console.log('Not working')
+            console.log(`❌ Sorry, the operation failed.`);
         }
     }, 600000);
 }
